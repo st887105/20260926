@@ -257,7 +257,7 @@ textarea.field{resize:vertical;line-height:1.7}
     <div class="flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-3">
         <div class="brand-mark">車城</div>
-        <button id="versionBadge" class="version-badge" onclick="openChangelog()">v1.3</button>
+        <button id="versionBadge" class="version-badge" onclick="openChangelog()">v1.3.1</button>
       </div>
       <div class="flex items-center gap-2">
         <button id="logoutBtn" class="header-btn hidden" onclick="logout()">登出</button>
@@ -596,10 +596,15 @@ textarea.field{resize:vertical;line-height:1.7}
  * 設定區
  * ===================================================================== */
 const DEFAULT_GAS_URL = 'https://script.google.com/a/macros/cces.ptc.edu.tw/s/AKfycbyCiOrB0C5ejdXJmNDrlO5NYBVUp6peT3kvJBaZwUjPTVUsE5jZPx4Cpw0qOGJ7K1vUZA/exec';
+// ⭐ 網域版網址（/a/macros/學校網域/s/…）遇到「未登入學校帳號」或「瀏覽器同時登入多個 Google 帳號」時
+//    會被導向登入／錯誤頁（HTML），JSONP 會直接失敗。一律轉成通用格式 /macros/s/…/exec。
+//    ⚠️ 前提：GAS 部署的存取權限必須是「所有人 (Anyone)」。
+const GAS_URL = DEFAULT_GAS_URL.replace(/^https:\/\/script\.google\.com\/a\/macros\/[^/]+\/s\//, 'https://script.google.com/macros/s/');
 const PBL_SITE_URL = 'https://sites.google.com/cces.ptc.edu.tw/cces10801/%E9%A6%96%E9%A0%81/%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8Fpbl%E5%B0%88%E9%A1%8C%E8%AA%B2%E7%A8%8B/%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8Fpbl%E5%B0%88%E9%A1%8C%E8%AA%B2%E7%A8%8B-%E7%94%A8suno-ai-%E6%94%B9%E7%B7%A8%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8F%E6%A0%A1%E6%AD%8C?authuser=0';
 
-const APP_VERSION = 'v1.3';
+const APP_VERSION = 'v1.3.1';
 const CHANGELOG = [
+  { version: 'v1.3.1', date: '2026-09-27', desc: '修正 GitHub Pages 上「JSONP 連線失敗」：學校網域版 GAS 網址（/a/macros/cces.ptc.edu.tw/）自動轉為通用格式 /macros/s/…/exec，避免學生未登入或多帳號登入時被導向登入頁；連線失敗訊息改為提示檢查部署權限，並在 Console 印出 ping 檢查網址。' },
   { version: 'v1.3', date: '2026-09-26', desc: '新增作品上傳與成果展示網站：第三關可上傳 Gemini 下載的歌曲檔（分塊上傳至 Drive，最大 20MB）；第四關加入「同意放上成果展示」勾選；新增 showcase.html 公開展示頁（姓名遮一字、發表會輪播模式）；教師主控台新增「上傳作品」欄位。需搭配後端 v1.1。' },
   { version: 'v1.2', date: '2026-09-26', desc: '配合 Gemini 音樂「長度：簡短」約 1 分鐘：三區歌詞每區至少 40 字、完整歌詞至少 150 字（不計段落標籤與標點），副歌加長為四句；第三關新增「認識 Gemini 音樂創作」介紹（長度／人聲／類型設定與使用小規則），生成步驟與指令加入長度設定。' },
   { version: 'v1.1', date: '2026-09-26', desc: '改為全程使用 Gemini 生成音樂：移除 Suno 按鈕與工具選單，第三關新增 Gemini 音樂生成步驟說明；配合 Gemini 約 30 秒的長度，副歌縮為兩句並顯示歌詞字數；移除 MP3 備援，網站只需上傳影片與樂譜圖。' },
@@ -702,7 +707,7 @@ let teacherViewMode = 'table';
 /* =====================================================================
  * 智慧路由：JSONP (GET) + Raw POST (text/plain)
  * ===================================================================== */
-function gasReady() { return /^https:\/\/script\.google\.com\//.test(DEFAULT_GAS_URL); }
+function gasReady() { return /^https:\/\/script\.google\.com\/macros\/s\//.test(GAS_URL); }
 
 function callGAS_JSONP(params, callback) {
   if (!gasReady()) { callback(new Error('尚未設定 GAS 網址')); return; }
@@ -720,15 +725,18 @@ function callGAS_JSONP(params, callback) {
   window[cbName] = data => finish(null, data);
   const qs = Object.entries({ ...params, callback: cbName })
     .map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
-  script.onerror = () => finish(new Error('JSONP 連線失敗，請確認網路或稍後再試'));
-  script.src = DEFAULT_GAS_URL + '?' + qs;
+  script.onerror = () => {
+    console.warn('[GAS] 連線失敗，請老師用瀏覽器開啟檢查：' + GAS_URL + '?action=ping');
+    finish(new Error('連不上後端系統，請告訴老師（GAS 部署權限需為「所有人」）'));
+  };
+  script.src = GAS_URL + '?' + qs;
   document.head.appendChild(script);
 }
 
 async function callGAS_POST(data) {
   if (!gasReady()) throw new Error('尚未設定 GAS 網址');
   try {
-    const res = await fetch(DEFAULT_GAS_URL, {
+    const res = await fetch(GAS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },   // ⚠️ 不能用 application/json
       body: JSON.stringify(data),
