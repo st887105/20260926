@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>車城國小｜AI 校歌成果展示</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   車城闖關系統｜自建輕量 CSS（取代 cdn.tailwindcss.com）
+   ⚠️ 維護提醒：日後新增任何 utility class，必須回到本區塊補規則，
+      否則樣式會「靜默失效」（不報錯，只是少了 padding 或顏色）。
+   ===================================================================== */
+
+/* ---------- 色票 ---------- */
+:root{
+  --night:#0f1f3d; --night-2:#16305a; --sea:#0e7c86; --sea-2:#13a3a8; --sea-50:#e6f6f6;
+  --rice:#e4b43c; --rice-50:#fdf6e3; --seal:#d0282e; --seal-50:#fdecec;
+  --ink:#1c2433; --slate-600:#4a5568; --slate-500:#64748b; --slate-400:#94a3b8;
+  --slate-200:#e2e8f0; --slate-100:#f1f5f9; --slate-50:#f8fafc; --paper:#fbfaf6;
+  --green-600:#16a34a; --green-50:#ecfdf3; --amber-600:#b45309; --amber-50:#fffbeb;
+  --radius:14px;
+}
+
+/* ---------- Reset ---------- */
+*,::before,::after{box-sizing:border-box;border:0 solid var(--slate-200);margin:0;padding:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font-family:'Noto Sans TC',system-ui,-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+img,video,audio{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none}
+a{color:var(--sea);text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- 容器 ---------- */
+.container{width:100%;max-width:960px;margin:0 auto;padding:0 16px}
+.max-w-md{max-width:28rem}
+.mx-auto{margin-left:auto;margin-right:auto}
+
+/* ---------- display / position ---------- */
+.block{display:block}.inline-block{display:inline-block}
+.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}
+.relative{position:relative}.fixed{position:fixed}.sticky{position:sticky}
+.inset-0{top:0;right:0;bottom:0;left:0}.top-0{top:0}
+.z-40{z-index:40}.z-50{z-index:50}
+.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}
+
+/* ---------- flex / grid ---------- */
+.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.flex-1{flex:1 1 0%}
+.items-center{align-items:center}.items-start{align-items:flex-start}.items-end{align-items:flex-end}
+.justify-between{justify-content:space-between}.justify-center{justify-content:center}.justify-end{justify-content:flex-end}
+.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* ---------- 尺寸 ---------- */
+.w-full{width:100%}.h-full{height:100%}.min-w-0{min-width:0}
+
+/* ---------- 間距 ---------- */
+.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}
+.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}
+.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}
+.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}
+.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}
+.ml-auto{margin-left:auto}
+
+/* ---------- 文字 ---------- */
+.text-xs{font-size:.75rem;line-height:1.5}.text-sm{font-size:.875rem;line-height:1.6}.text-base{font-size:1rem}
+.text-lg{font-size:1.125rem}.text-xl{font-size:1.25rem}.text-2xl{font-size:1.5rem;line-height:1.35}.text-3xl{font-size:1.875rem;line-height:1.3}
+.font-medium{font-weight:500}.font-bold{font-weight:700}.font-black{font-weight:900}
+.text-center{text-align:center}.text-left{text-align:left}.text-right{text-align:right}
+.whitespace-pre-wrap{white-space:pre-wrap}.break-all{word-break:break-all}.leading-loose{line-height:2}
+.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.font-serif{font-family:'Noto Serif TC','Noto Sans TC',serif}
+.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- 文字色 ---------- */
+.text-white{color:#fff}.text-ink{color:var(--ink)}
+.text-slate-400{color:var(--slate-400)}.text-slate-500{color:var(--slate-500)}.text-slate-600{color:var(--slate-600)}
+.text-sea{color:var(--sea)}.text-seal{color:var(--seal)}.text-rice{color:#9a7412}
+.text-green-600{color:var(--green-600)}.text-amber-600{color:var(--amber-600)}
+
+/* ---------- 背景色 ---------- */
+.bg-white{background:#fff}.bg-paper{background:var(--paper)}.bg-slate-50{background:var(--slate-50)}.bg-slate-100{background:var(--slate-100)}
+.bg-sea-50{background:var(--sea-50)}.bg-rice-50{background:var(--rice-50)}.bg-seal-50{background:var(--seal-50)}
+.bg-green-50{background:var(--green-50)}.bg-amber-50{background:var(--amber-50)}
+
+/* ---------- 邊框 ---------- */
+.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-l-4{border-left-width:4px}
+.border-sea{border-color:var(--sea)}.border-rice{border-color:var(--rice)}.border-seal{border-color:var(--seal)}.border-slate-200{border-color:var(--slate-200)}
+.rounded{border-radius:8px}.rounded-lg{border-radius:var(--radius)}.rounded-full{border-radius:9999px}
+
+/* ---------- 陰影 ---------- */
+.shadow{box-shadow:0 1px 3px rgba(15,31,61,.08),0 1px 2px rgba(15,31,61,.05)}
+.shadow-lg{box-shadow:0 12px 32px rgba(15,31,61,.14)}
+
+/* ---------- 響應式 ---------- */
+@media (min-width:640px){
+  .sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sm\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sm\:flex-row{flex-direction:row}
+}
+@media (min-width:900px){
+  .lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .lg\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* =====================================================================
+   專案自訂元件
+   ===================================================================== */
+/* 頁首：夜空 + 五線譜 */
+.site-header{background:linear-gradient(160deg,var(--night) 0%,var(--night-2) 55%,var(--sea) 130%);color:#fff;position:relative;overflow:hidden}
+.site-header::before{content:"";position:absolute;inset:auto 0 6px 0;height:40px;opacity:.14;
+  background:repeating-linear-gradient(to bottom,#fff 0 1px,transparent 1px 12px)}
+.site-header::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:radial-gradient(1.5px 1.5px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 28% 60%,#fff 50%,transparent 51%),
+  radial-gradient(2px 2px at 71% 18%,var(--rice) 50%,transparent 51%),radial-gradient(1px 1px at 86% 48%,#fff 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 55% 35%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 40% 12%,#fff 50%,transparent 51%)}
+.header-inner{position:relative;z-index:1;padding-top:22px;padding-bottom:58px}
+.brand-mark{width:44px;height:44px;border-radius:10px;background:var(--seal);display:grid;place-items:center;
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.05rem;letter-spacing:-.05em;box-shadow:0 0 0 3px rgba(228,180,60,.55)}
+.hero-title{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.55rem,4.6vw,2.4rem);line-height:1.25;letter-spacing:.02em}
+.hero-sub{color:rgba(255,255,255,.8);font-size:.95rem}
+.version-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:.75rem;padding:2px 10px;border-radius:9999px}
+.version-badge:hover{background:rgba(255,255,255,.3)}
+.header-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:9999px;padding:6px 14px;font-size:.85rem;min-height:36px}
+.header-btn:hover{background:rgba(255,255,255,.25)}
+
+/* 橫幅 */
+.env-banner{font-size:.8rem;padding:6px 12px;text-align:center}
+.env-ok{background:var(--green-50);color:var(--green-600)}
+.env-warn{background:var(--amber-50);color:var(--amber-600)}
+.err-banner{position:sticky;top:0;z-index:45;background:var(--seal);color:#fff;text-align:center;padding:10px 14px;font-weight:700}
+
+/* 卡片與按鈕 */
+.card{background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius);padding:20px;box-shadow:0 1px 3px rgba(15,31,61,.06)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:44px;padding:0 18px;border-radius:10px;font-weight:700;transition:transform .08s,background .15s,opacity .15s}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--sea);color:#fff}.btn-primary:hover{background:#0a6870}
+.btn-seal{background:var(--seal);color:#fff}.btn-seal:hover{background:#b21f25}
+.btn-ghost{background:#fff;border:1px solid var(--slate-200);color:var(--ink)}.btn-ghost:hover{background:var(--slate-50)}
+.btn-rice{background:var(--rice);color:var(--night)}.btn-rice:hover{background:#d4a42c}
+.btn-sm{min-height:36px;padding:0 12px;font-size:.85rem}
+.field{width:100%;border:1px solid var(--slate-200);border-radius:10px;padding:10px 12px;background:#fff;min-height:44px}
+.field:focus{outline:3px solid rgba(14,124,134,.25);border-color:var(--sea)}
+textarea.field{resize:vertical;line-height:1.7}
+.label{display:block;font-weight:700;margin-bottom:6px}
+.hint{font-size:.8rem;color:var(--slate-500)}
+.counter{font-size:.75rem;color:var(--slate-400);text-align:right;margin-top:2px}
+.counter.bad{color:var(--seal)}
+
+/* 關卡進度（五線譜音符） */
+.stage-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;position:relative}
+.stage-chip{border:2px solid var(--slate-200);background:#fff;border-radius:12px;padding:8px 6px;text-align:center;font-size:.78rem;line-height:1.35;color:var(--slate-500)}
+.stage-chip .num{display:block;font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.15rem}
+.stage-chip.done{border-color:var(--sea);color:var(--sea);background:var(--sea-50)}
+.stage-chip.active{border-color:var(--rice);color:var(--night);background:var(--rice-50);box-shadow:0 0 0 3px rgba(228,180,60,.25)}
+.stage-chip.locked{opacity:.55}
+.stage-chip:disabled{cursor:not-allowed}
+.xp-pill{background:var(--night);color:var(--rice);border-radius:9999px;padding:4px 12px;font-weight:700;font-size:.85rem}
+
+/* 關卡標題 */
+.stage-kicker{color:var(--sea);font-weight:700;font-size:.85rem}
+.stage-title{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.6rem;line-height:1.3}
+
+/* 校歌歌詞：直式寫法不適合手機，改用分句大字 */
+.lyric-sheet{background:var(--paper);border:1px dashed var(--rice);border-radius:12px;padding:16px;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 33px,rgba(228,180,60,.18) 33px 34px)}
+.lyric-line{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.15rem;letter-spacing:.12em;line-height:34px}
+.lyric-key{background:linear-gradient(transparent 58%,rgba(19,163,168,.28) 58%);padding:0 2px}
+
+/* 題目 */
+.quiz-opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:2px solid var(--slate-200);border-radius:12px;padding:10px 12px;background:#fff;min-height:44px}
+.quiz-opt:hover{border-color:var(--sea-2)}
+.quiz-opt.picked{border-color:var(--sea);background:var(--sea-50)}
+.quiz-opt.right{border-color:var(--green-600);background:var(--green-50)}
+.quiz-opt.wrong{border-color:var(--seal);background:var(--seal-50)}
+.quiz-letter{flex:none;width:26px;height:26px;border-radius:9999px;background:var(--slate-100);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.feedback{border-radius:10px;padding:10px 12px;font-size:.9rem}
+.feedback.ok{background:var(--green-50);color:#14532d}
+.feedback.no{background:var(--seal-50);color:#7f1d1d}
+
+/* 配對 */
+.match-row{display:grid;grid-template-columns:minmax(0,7rem) minmax(0,1fr);gap:10px;align-items:center}
+.match-word{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.1rem;letter-spacing:.1em}
+
+/* 三校區歌詞卡 */
+.campus-card{border-radius:14px;padding:16px;border:2px solid}
+.campus-astro{border-color:#3b4f8a;background:linear-gradient(180deg,#eef1fb,#fff)}
+.campus-agri{border-color:#9a7412;background:linear-gradient(180deg,var(--rice-50),#fff)}
+.campus-ocean{border-color:var(--sea);background:linear-gradient(180deg,var(--sea-50),#fff)}
+.campus-tag{display:inline-block;font-size:.75rem;font-weight:700;border-radius:9999px;padding:2px 10px;background:#fff;border:1px solid currentColor}
+.word-chip{display:inline-block;font-size:.8rem;padding:2px 10px;border-radius:9999px;background:#fff;border:1px dashed var(--slate-400);margin:2px 4px 2px 0;min-height:30px}
+.word-chip:hover{border-style:solid;border-color:var(--sea);color:var(--sea)}
+
+/* 曲風選擇 */
+.style-chip{border:2px solid var(--slate-200);border-radius:12px;padding:8px 12px;background:#fff;font-weight:500;min-height:44px}
+.style-chip:hover{border-color:var(--sea-2)}
+.style-chip.on{border-color:var(--sea);background:var(--sea);color:#fff}
+.prompt-box{background:var(--night);color:#e6f0ff;border-radius:12px;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;max-height:320px;overflow-y:auto}
+
+/* 完賽徽章 */
+.badge-medal{width:168px;height:168px;border-radius:9999px;margin:0 auto;display:grid;place-items:center;text-align:center;
+  background:radial-gradient(circle at 35% 30%,#fff5d6 0%,var(--rice) 45%,#a87a14 100%);color:var(--night);
+  box-shadow:0 0 0 8px var(--night),0 0 0 11px var(--rice),0 18px 40px rgba(15,31,61,.35)}
+.badge-medal .t1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.05rem;line-height:1.25}
+.badge-medal .t2{font-size:.75rem;font-weight:700}
+
+/* 教師主控台 */
+.stat-box{border-radius:12px;padding:12px;border-width:1px;border-style:solid}
+.view-btn{border:1px solid var(--slate-200);background:#fff;padding:6px 12px;font-size:.85rem;min-height:36px}
+.view-btn:first-child{border-radius:9999px 0 0 9999px}.view-btn:last-child{border-radius:0 9999px 9999px 0}
+.view-btn.on{background:var(--night);color:#fff;border-color:var(--night)}
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table th{background:var(--slate-100);text-align:left;padding:8px;white-space:nowrap;position:sticky;top:0}
+.data-table td{padding:8px;border-top:1px solid var(--slate-200);vertical-align:top;max-width:220px}
+.data-table tr:hover td{background:var(--slate-50)}
+.progress{height:8px;border-radius:9999px;background:var(--slate-100);overflow:hidden}
+.progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--sea),var(--rice))}
+.clamp-4{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.show-card{background:#fff;border:1px solid var(--slate-200);border-radius:14px;padding:16px;cursor:pointer;transition:box-shadow .15s}
+.show-card:hover{box-shadow:0 10px 26px rgba(15,31,61,.12)}
+.field-block{border-left:3px solid var(--sea-2);padding-left:10px}
+
+/* Modal / Toast */
+.modal-backdrop{background:rgba(15,31,61,.55);padding:16px}
+.modal-panel{background:#fff;border-radius:16px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;padding:22px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;
+  background:var(--night);color:#fff;border-radius:9999px;padding:10px 18px;font-weight:700;box-shadow:0 10px 26px rgba(0,0,0,.25);max-width:92vw}
+.toast.error{background:var(--seal)}
+.spinner{width:18px;height:18px;border-radius:9999px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.site-footer{color:var(--slate-500);font-size:.8rem;text-align:center;padding:28px 0 36px}
+.upload-drop{border:2px dashed var(--sea-2);border-radius:12px;background:#fff;padding:14px}
+.upload-drop input[type=file]{width:100%;font-size:.85rem}
+.player-box{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;background:var(--night)}
+.player-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.progress-lg{height:12px}
+.consent{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--rice);background:var(--rice-50);border-radius:12px;padding:12px}
+.consent input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--sea)}
+
+
+/* ---------- 成果展示專用 ---------- */
+.show-panel{max-width:920px}
+.work-card{background:#fff;border:1px solid var(--slate-200);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.work-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,31,61,.14)}
+.work-cover{position:relative;height:140px;padding:16px;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+.work-cover::before{content:"";position:absolute;inset:auto 0 28px 0;height:40px;opacity:.22;background:repeating-linear-gradient(to bottom,#fff 0 1px,transparent 1px 10px)}
+.work-note{position:absolute;right:14px;top:4px;font-size:4.5rem;line-height:1;opacity:.35;font-family:'Noto Serif TC',serif}
+.work-title{position:relative;font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.3rem;line-height:1.3}
+.cover-astro{background:linear-gradient(150deg,#0f1f3d,#3b4f8a)}
+.cover-agri{background:linear-gradient(150deg,#7a5a0c,#e4b43c)}
+.cover-ocean{background:linear-gradient(150deg,#0a4f57,#13a3a8)}
+.cover-night{background:linear-gradient(150deg,#16305a,#d0282e)}
+
+/* ⚠️ .hidden 必須放在所有 display utility 之後，
+   否則 "hidden flex" / "hidden grid" 這類組合會蓋不掉 display。 */
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div id="errorBanner" class="err-banner hidden">⚠️ 系統暫時無法連線，請確認網路後重新整理頁面。</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="flex items-center justify-between gap-3 flex-wrap">
+      <div class="flex items-center gap-3">
+        <div class="brand-mark">車城</div>
+        <span id="versionBadge" class="version-badge">v1.3.1</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a class="header-btn" href="index.html" style="text-decoration:none">🎫 回闖關網站</a>
+      </div>
+    </div>
+    <h1 class="hero-title mt-4">車城專屬校歌<br>成果展示</h1>
+    <p class="hero-sub mt-2">天文的星空、溫泉的菜園、射寮的海浪——聽聽大家用 AI 唱出的新校歌。</p>
+  </div>
+</header>
+<div id="envBanner" class="env-banner env-ok"></div>
+
+<main class="container mt-6">
+  <div class="card p-3 mb-4 flex flex-wrap items-center gap-3">
+    <label class="text-sm flex items-center gap-2">日期
+      <select id="dateFilter" class="field py-1" style="min-height:36px;width:auto" onchange="render()"></select>
+    </label>
+    <label class="text-sm flex items-center gap-2">班級
+      <select id="classFilter" class="field py-1" style="min-height:36px;width:auto" onchange="render()"></select>
+    </label>
+    <input id="searchBox" class="field py-1 flex-1" style="min-height:36px;min-width:140px" placeholder="搜尋歌名或歌詞" oninput="render()">
+    <button class="btn btn-rice btn-sm" onclick="startShow()">🎬 發表會模式</button>
+    <button class="btn btn-ghost btn-sm" onclick="loadShowcase()">🔄</button>
+  </div>
+
+  <p id="countText" class="text-sm text-slate-500 mb-3"></p>
+  <div id="gallery" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <p class="text-slate-500">載入中…</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>車城國小資訊老師 @ Google Gemini 協作設計</p>
+  <p id="footerVersion" class="mt-1"></p>
+</footer>
+
+<!-- 作品播放 / 發表會模式 -->
+<div id="playModal" class="hidden fixed inset-0 z-50 modal-backdrop flex items-center justify-center" onclick="if(event.target===this)closePlay()">
+  <div class="modal-panel show-panel">
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <div class="min-w-0">
+        <p id="playMeta" class="text-sm text-slate-500"></p>
+        <h3 id="playTitle" class="stage-title"></h3>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="closePlay()">✕</button>
+    </div>
+    <div id="playMedia"></div>
+    <div class="grid lg:grid-cols-2 gap-4 mt-4">
+      <div class="lyric-sheet"><p class="text-xs text-rice font-bold mb-1">歌詞</p><p id="playLyrics" class="whitespace-pre-wrap leading-loose"></p></div>
+      <div class="flex flex-col gap-3 text-sm">
+        <div class="field-block"><div class="text-xs text-slate-500 font-bold">💡 創作理念</div><p id="playIdea" class="whitespace-pre-wrap"></p></div>
+        <div class="field-block"><div class="text-xs text-slate-500 font-bold">🥚 歌詞彩蛋</div><p id="playEgg" class="whitespace-pre-wrap"></p></div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-2 mt-4">
+      <button class="btn btn-ghost" onclick="stepShow(-1)">← 上一首</button>
+      <span id="playIndex" class="text-sm text-slate-500"></span>
+      <button class="btn btn-primary" onclick="stepShow(1)">下一首 →</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+/* =====================================================================
+ * 設定區（DEFAULT_GAS_URL 與 index.html 相同）
+ * ===================================================================== */
+const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxrRJ3sTzMiHtbOY-D79TrG9EvtcB5wAzv5lCliVdpj4vnSI6m-Zj6_9SND03j7Kb3z/exec';
+// ⭐ 網域版網址（/a/macros/學校網域/s/…）遇到「未登入學校帳號」或「瀏覽器同時登入多個 Google 帳號」時
+//    會被導向登入／錯誤頁（HTML），JSONP 會直接失敗。一律轉成通用格式 /macros/s/…/exec。
+//    ⚠️ 前提：GAS 部署的存取權限必須是「所有人 (Anyone)」。
+const GAS_URL = DEFAULT_GAS_URL.replace(/^https:\/\/script\.google\.com\/a\/macros\/[^/]+\/s\//, 'https://script.google.com/macros/s/');
+const APP_VERSION = 'v1.3.1';
+
+// 卡片封面配色（完整 class 名寫死，符合自建 CSS 規範）
+const COVERS = ['cover-astro', 'cover-agri', 'cover-ocean', 'cover-night'];
+
+let works = [];
+let viewList = [];
+let playIdx = -1;
+
+/* ---------- 智慧路由：JSONP 讀取 ---------- */
+function gasReady() { return /^https:\/\/script\.google\.com\/macros\/s\//.test(GAS_URL); }
+function callGAS_JSONP(params, callback) {
+  if (!gasReady()) { callback(new Error('尚未設定 GAS 網址')); return; }
+  const cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+  const script = document.createElement('script');
+  let done = false;
+  const timer = setTimeout(() => finish(new Error('連線逾時')), 20000);
+  function finish(err, data) {
+    if (done) return; done = true;
+    clearTimeout(timer);
+    delete window[cbName];
+    if (script.parentNode) script.parentNode.removeChild(script);
+    callback(err, data);
+  }
+  window[cbName] = data => finish(null, data);
+  const qs = Object.entries({ ...params, callback: cbName })
+    .map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+  script.onerror = () => {
+    console.warn('[GAS] 連線失敗，請老師用瀏覽器開啟檢查：' + GAS_URL + '?action=ping');
+    finish(new Error('連不上後端系統，請告訴老師（GAS 部署權限需為「所有人」）'));
+  };
+  script.src = GAS_URL + '?' + qs;
+  document.head.appendChild(script);
+}
+
+/* ---------- 工具 ---------- */
+function $(id) { return document.getElementById(id); }
+function escapeHtml(v) {
+  return (v === null || v === undefined ? '' : String(v))
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function safeUrl(u) { const s = (u || '').toString().trim(); return /^https?:\/\//i.test(s) ? s : ''; }
+function showToast(msg, type) {
+  const t = $('toast'); t.textContent = msg; t.className = 'toast' + (type === 'error' ? ' error' : '');
+  clearTimeout(showToast.timer); showToast.timer = setTimeout(() => t.classList.add('hidden'), 2800);
+}
+function lyricPreview(text) {
+  return String(text || '').replace(/\[[^\]]*\]/g, '').split('\n').map(s => s.trim()).filter(Boolean).slice(0, 4).join('\n');
+}
+
+/* ---------- 版本標示 ---------- */
+function renderVersion() {
+  $('versionBadge').textContent = APP_VERSION;
+  $('footerVersion').textContent = `版本 ${APP_VERSION}`;
+  const env = $('envBanner');
+  if (!gasReady()) { env.className = 'env-banner env-warn'; env.textContent = `⚠️ 尚未設定 GAS 網址（${APP_VERSION}）`; }
+  else if (location.hostname.endsWith('github.io')) { env.className = 'env-banner env-ok'; env.textContent = `✅ 目前運行於 GitHub Pages 正式環境（${APP_VERSION}）`; }
+  else { env.className = 'env-banner env-warn'; env.textContent = `🧪 目前為本機／測試環境（${APP_VERSION}）`; }
+}
+
+/* ---------- 讀取與篩選 ---------- */
+function loadShowcase() {
+  $('gallery').innerHTML = '<p class="text-slate-500">載入中…</p>';
+  callGAS_JSONP({ action: 'getShowcase' }, (err, res) => {
+    if (err || !res || !res.success) {
+      $('errorBanner').classList.remove('hidden');
+      $('gallery').innerHTML = '<p class="text-slate-500">暫時讀不到作品，請稍後重新整理。</p>';
+      return;
+    }
+    $('errorBanner').classList.add('hidden');
+    works = res.data || [];
+    buildFilters();
+    render();
+  });
+}
+
+function buildFilters() {
+  const keepD = $('dateFilter').value, keepC = $('classFilter').value;
+  const dates = [...new Set(works.map(w => w.date).filter(Boolean))].sort().reverse();
+  const classes = [...new Set(works.map(w => w.className).filter(Boolean))].sort();
+  $('dateFilter').innerHTML = '<option value="">全部日期</option>' + dates.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join('');
+  $('classFilter').innerHTML = '<option value="">全部班級</option>' + classes.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  if (dates.includes(keepD)) $('dateFilter').value = keepD;
+  if (classes.includes(keepC)) $('classFilter').value = keepC;
+}
+
+function render() {
+  const d = $('dateFilter').value, c = $('classFilter').value, q = $('searchBox').value.trim().toLowerCase();
+  viewList = works
+    .filter(w => !d || w.date === d)
+    .filter(w => !c || w.className === c)
+    .filter(w => !q || (w.songTitle + ' ' + w.fullLyrics).toLowerCase().includes(q));
+  $('countText').textContent = `共 ${viewList.length} 首作品`;
+  if (!viewList.length) {
+    $('gallery').innerHTML = '<p class="text-slate-500">目前還沒有作品，完成闖關並勾選「同意放上成果展示」就會出現在這裡。</p>';
+    return;
+  }
+  $('gallery').innerHTML = viewList.map((w, i) => `
+    <article class="work-card" onclick="openPlay(${i})">
+      <div class="work-cover ${COVERS[i % COVERS.length]}">
+        <span class="work-note">♪</span>
+        <h2 class="work-title">${escapeHtml(w.songTitle || '未命名的校歌')}</h2>
+      </div>
+      <div class="p-4">
+        <p class="text-sm text-slate-500">${escapeHtml(w.name)}${w.className ? '・' + escapeHtml(w.className) : ''}</p>
+        <p class="whitespace-pre-wrap text-sm mt-2 clamp-4">${escapeHtml(lyricPreview(w.fullLyrics))}</p>
+        ${w.easterEgg ? `<p class="text-xs mt-2 text-rice">🥚 ${escapeHtml(w.easterEgg)}</p>` : ''}
+        <div class="mt-3"><span class="btn btn-primary btn-sm">▶ 播放</span></div>
+      </div>
+    </article>`).join('');
+}
+
+/* ---------- 播放 / 發表會模式 ---------- */
+function openPlay(i) {
+  const w = viewList[i];
+  if (!w) return;
+  playIdx = i;
+  $('playMeta').textContent = `${w.name}${w.className ? '・' + w.className : ''}`;
+  $('playTitle').textContent = w.songTitle || '未命名的校歌';
+  const fileUrl = safeUrl(w.songFileUrl), linkUrl = safeUrl(w.songUrl);
+  $('playMedia').innerHTML = fileUrl
+    ? `<div class="player-box"><iframe src="${escapeHtml(fileUrl)}" allow="autoplay" title="作品播放"></iframe></div>
+       ${linkUrl ? `<a class="text-sm mt-2 inline-block" href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">另開 Gemini 分享連結 ↗</a>` : ''}`
+    : `<a class="btn btn-primary" style="text-decoration:none" href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">▶ 開啟 Gemini 分享連結</a>`;
+  $('playLyrics').textContent = String(w.fullLyrics || '').replace(/\[[^\]]*\]\n?/g, '');
+  $('playIdea').textContent = w.creationIdea || '—';
+  $('playEgg').textContent = w.easterEgg || '—';
+  $('playIndex').textContent = `${i + 1} / ${viewList.length}`;
+  $('playModal').classList.remove('hidden');
+}
+function closePlay() { $('playMedia').innerHTML = ''; $('playModal').classList.add('hidden'); playIdx = -1; }
+function stepShow(delta) {
+  if (!viewList.length) return;
+  openPlay((playIdx + delta + viewList.length) % viewList.length);
+}
+function startShow() {
+  if (!viewList.length) { showToast('目前沒有作品可以播放', 'error'); return; }
+  openPlay(0);
+}
+document.addEventListener('keydown', e => {
+  if ($('playModal').classList.contains('hidden')) return;
+  if (e.key === 'Escape') closePlay();
+  if (e.key === 'ArrowRight') stepShow(1);
+  if (e.key === 'ArrowLeft') stepShow(-1);
+});
+
+/* ---------- 初始化 ---------- */
+renderVersion();
+loadShowcase();
+</script>
+</body>
+</html>
