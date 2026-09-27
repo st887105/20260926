@@ -235,6 +235,13 @@ textarea.field{resize:vertical;line-height:1.7}
 .spinner{width:18px;height:18px;border-radius:9999px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .site-footer{color:var(--slate-500);font-size:.8rem;text-align:center;padding:28px 0 36px}
+.upload-drop{border:2px dashed var(--sea-2);border-radius:12px;background:#fff;padding:14px}
+.upload-drop input[type=file]{width:100%;font-size:.85rem}
+.player-box{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;background:var(--night)}
+.player-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.progress-lg{height:12px}
+.consent{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--rice);background:var(--rice-50);border-radius:12px;padding:12px}
+.consent input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--sea)}
 
 /* ⚠️ .hidden 必須放在所有 display utility 之後，
    否則 "hidden flex" / "hidden grid" 這類組合會蓋不掉 display。 */
@@ -250,10 +257,11 @@ textarea.field{resize:vertical;line-height:1.7}
     <div class="flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-3">
         <div class="brand-mark">車城</div>
-        <button id="versionBadge" class="version-badge" onclick="openChangelog()">v1.1</button>
+        <button id="versionBadge" class="version-badge" onclick="openChangelog()">v1.3</button>
       </div>
       <div class="flex items-center gap-2">
         <button id="logoutBtn" class="header-btn hidden" onclick="logout()">登出</button>
+        <a class="header-btn" href="showcase.html" style="text-decoration:none">🎧 成果展示</a>
         <button class="header-btn" onclick="openTeacherLogin()">👩‍🏫 教師主控台</button>
       </div>
     </div>
@@ -339,7 +347,7 @@ textarea.field{resize:vertical;line-height:1.7}
         <p class="font-bold mb-1">✏️ 改寫示範</p>
         <p>「溫泉洗濁」→「暖暖的泉水，洗去一身的疲憊」</p>
         <p>「海濤奔湧」→「浪花一波一波，拍打射寮的沙灘」</p>
-        <p class="hint mt-1">不用押韻、不用很長，重點是讓人一聽就知道是哪裡的特色。</p>
+        <p class="hint mt-1">不用押韻，重點是讓人一聽就知道是哪裡的特色。每區寫 2 至 4 句，把畫面描述得具體一點。</p>
       </div>
 
       <div id="quiz3" class="mb-6"></div>
@@ -350,35 +358,35 @@ textarea.field{resize:vertical;line-height:1.7}
           <div class="mt-2 mb-2" data-words="lyricAstronomy">
             <button class="word-chip">望遠鏡</button><button class="word-chip">銀河</button><button class="word-chip">落山風</button><button class="word-chip">星座</button><button class="word-chip">月亮</button>
           </div>
-          <textarea id="lyricAstronomy" class="field" rows="4" maxlength="60" placeholder="例如：拿起望遠鏡，數一數車城夜空的星星"></textarea>
-          <div class="counter" data-for="lyricAstronomy" data-min="6"></div>
+          <textarea id="lyricAstronomy" class="field" rows="4" maxlength="150" placeholder="例如：落山風吹過操場，我們架起望遠鏡，數一數車城夜空的星星，銀河就在頭頂閃亮"></textarea>
+          <div class="counter" data-for="lyricAstronomy" data-min="40" data-lyric="1"></div>
         </div>
         <div class="campus-card campus-agri">
           <span class="campus-tag" style="color:#9a7412">🌾 溫泉分校 · 食農</span>
           <div class="mt-2 mb-2" data-words="lyricFoodAgri">
             <button class="word-chip">洋蔥</button><button class="word-chip">稻穗</button><button class="word-chip">溫泉</button><button class="word-chip">小菜園</button><button class="word-chip">汗水</button>
           </div>
-          <textarea id="lyricFoodAgri" class="field" rows="4" maxlength="60" placeholder="例如：溫泉邊的小菜園，洋蔥長得圓又甜"></textarea>
-          <div class="counter" data-for="lyricFoodAgri" data-min="6"></div>
+          <textarea id="lyricFoodAgri" class="field" rows="4" maxlength="150" placeholder="例如：溫泉邊的小菜園，我們彎腰種下洋蔥，汗水換來圓又甜的收成"></textarea>
+          <div class="counter" data-for="lyricFoodAgri" data-min="40" data-lyric="1"></div>
         </div>
         <div class="campus-card campus-ocean">
           <span class="campus-tag" style="color:var(--sea)">🌊 射寮分校 · 海洋</span>
           <div class="mt-2 mb-2" data-words="lyricOcean">
             <button class="word-chip">漁船</button><button class="word-chip">珊瑚</button><button class="word-chip">海浪</button><button class="word-chip">漁港</button><button class="word-chip">夕陽</button>
           </div>
-          <textarea id="lyricOcean" class="field" rows="4" maxlength="60" placeholder="例如：射寮的漁船出海，帶回滿滿的希望"></textarea>
-          <div class="counter" data-for="lyricOcean" data-min="6"></div>
+          <textarea id="lyricOcean" class="field" rows="4" maxlength="150" placeholder="例如：射寮的漁船清晨出海，浪花拍著沙灘，夕陽下帶回滿滿的希望"></textarea>
+          <div class="counter" data-for="lyricOcean" data-min="40" data-lyric="1"></div>
         </div>
       </div>
-      <p class="hint mt-2">點上面的小詞卡可以直接加進歌詞。每區至少 6 個字、最多 60 字。</p>
+      <p class="hint mt-2">點上面的小詞卡可以直接加進歌詞。每區至少 40 字、最多 150 字（標點與空白不算字數）。</p>
 
       <div class="flex items-center justify-between gap-2 flex-wrap mt-6 mb-2">
         <h3 class="text-lg font-bold">🎼 組合成完整歌詞</h3>
         <button class="btn btn-rice btn-sm" onclick="assembleLyrics(true)">✨ 一鍵組合</button>
       </div>
-      <p class="hint mb-2">[Verse] 是主歌、[Chorus] 是副歌，AI 看得懂這些標籤。組合後可以再自己修改。<br>⏱️ Gemini 一次約生成 30 秒的歌，完整歌詞建議控制在 100 字以內，太長會唱不完。</p>
+      <p class="hint mb-2">[Verse] 是主歌、[Chorus] 是副歌，AI 看得懂這些標籤。組合後可以再自己修改。<br>⏱️ 第三關會在 Gemini 選「簡短」長度（約 1 分鐘），完整歌詞至少要 150 字，歌才唱得滿。</p>
       <textarea id="fullLyrics" class="field font-mono text-sm" rows="12" maxlength="1500" placeholder="按「一鍵組合」自動產生，也可以自己寫"></textarea>
-      <div class="counter" data-for="fullLyrics" data-min="0"></div>
+      <div class="counter" data-for="fullLyrics" data-min="150" data-lyric="1"></div>
 
       <div class="flex justify-between gap-2 mt-6">
         <button class="btn btn-ghost" onclick="goStep(1)">← 上一關</button>
@@ -390,6 +398,17 @@ textarea.field{resize:vertical;line-height:1.7}
     <article id="step3" class="quest-step card hidden">
       <p class="stage-kicker">第三關 · AI 曲風魔法師</p>
       <h2 class="stage-title mb-3">選好曲風，讓 AI 幫你譜出旋律</h2>
+
+      <div class="bg-sea-50 rounded-lg p-4 mb-6">
+        <h3 class="font-bold text-lg mb-2">🎹 認識 Gemini 音樂創作</h3>
+        <p class="text-sm">Gemini 內建 AI 音樂生成功能：你給它歌詞和風格描述，它會自動作曲、編曲，由 AI 歌手唱出來，還會幫歌曲配上一張封面圖。</p>
+        <div class="grid lg:grid-cols-3 gap-3 mt-3 text-sm">
+          <div class="bg-white rounded p-3 border"><p class="font-bold">🕒 長度</p><p>請選「<span class="font-bold text-seal">簡短</span>」，約 1 分鐘，所以歌詞要 150 字以上。</p></div>
+          <div class="bg-white rounded p-3 border"><p class="font-bold">🎤 人聲</p><p>配合你在下面「誰來唱」的選擇，例如兒童合唱、女生獨唱。</p></div>
+          <div class="bg-white rounded p-3 border"><p class="font-bold">🎵 類型</p><p>配合你選的曲風，例如流行、搖滾、民謠。</p></div>
+        </div>
+        <p class="hint mt-3">小規則：每次生成的結果都不一樣，可以多試幾次挑最好的；指令裡不要寫真實歌手的名字；AI 生成的歌會帶有看不見的數位浮水印，分享時要說明是 AI 作品。</p>
+      </div>
 
       <div id="quiz2" class="mb-6"></div>
 
@@ -405,7 +424,7 @@ textarea.field{resize:vertical;line-height:1.7}
       <input type="hidden" id="aiTool" value="Gemini">
       <div class="bg-rice-50 rounded-lg p-4 mb-4 text-sm">
         <p class="font-bold mb-1">🎹 在 Gemini 生成音樂的步驟</p>
-        <p>① 按下方「複製指令」→ ② 開啟 Gemini，用學校帳號登入 → ③ 在輸入框的「工具」選「音樂」（或首頁的「建立音樂」）→ ④ 貼上指令送出 → ⑤ 聽聽看，不滿意就再生成一次 → ⑥ 按「分享」複製連結貼回本頁。</p>
+        <p>① 按下方「複製指令」→ ② 開啟 Gemini，用學校帳號登入 → ③ 在輸入框的「工具」選「音樂」→ ④ 輸入框下方「長度」選「簡短」，「人聲」「類型」配合你的選擇 → ⑤ 貼上指令送出 → ⑥ 聽聽看，不滿意就再生成一次 → ⑦ 按「分享」複製連結貼回本頁。</p>
       </div>
 
       <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
@@ -429,7 +448,16 @@ textarea.field{resize:vertical;line-height:1.7}
         <input id="songTitle" class="field" maxlength="40" placeholder="例如：落山風吹過的星空">
         <label class="label text-sm mt-3" for="songUrl">作品分享連結（選填）</label>
         <input id="songUrl" class="field" inputmode="url" placeholder="https://...（Gemini 的分享連結）">
-        <p class="hint mt-1">沒有連結也沒關係，作品先存在老師平板上即可。</p>
+        <p class="hint mt-1">連結和下方的上傳檔案擇一即可，兩個都做更保險。</p>
+
+        <h3 class="font-bold mt-4 mb-2">💾 上傳作品檔（放上成果展示網站）</h3>
+        <div class="upload-drop">
+          <input id="songFile" type="file" accept="audio/*,video/*,.mp3,.m4a,.wav,.mp4,.webm,.mov">
+          <p class="hint mt-2">在 Gemini 按「下載」存下歌曲後選擇檔案上傳。支援 mp3、m4a、wav、mp4、webm、mov，最大 20MB；重新上傳會取代舊檔。</p>
+          <div class="progress progress-lg mt-2 hidden" id="uploadBarWrap"><span id="uploadBar" style="width:0%"></span></div>
+          <p id="uploadStatus" class="text-sm mt-2"></p>
+          <button id="uploadBtn" class="btn btn-primary btn-sm mt-2" onclick="uploadSongFile(this)">⬆️ 上傳作品</button>
+        </div>
       </div>
 
       <div class="flex justify-between gap-2 mt-6">
@@ -457,6 +485,12 @@ textarea.field{resize:vertical;line-height:1.7}
       <textarea id="reflection" class="field" rows="4" maxlength="600"></textarea>
       <div class="counter" data-for="reflection" data-min="10"></div>
 
+      <label class="consent mt-4" for="showcaseConsent">
+        <input type="checkbox" id="showcaseConsent">
+        <span class="text-sm"><span class="font-bold">我同意把作品放上成果展示網站</span><br>
+        展示網站只會顯示姓名遮一個字（例如 王○明）、班級、歌名、歌詞和作品，老師隨時可以下架。</span>
+      </label>
+
       <div class="flex justify-between gap-2 mt-6">
         <button class="btn btn-ghost" onclick="goStep(3)">← 上一關</button>
         <button class="btn btn-seal" onclick="finishStep4(this)">🏆 完成闖關</button>
@@ -471,6 +505,7 @@ textarea.field{resize:vertical;line-height:1.7}
       <div id="finishSummary" class="text-left bg-slate-50 rounded-lg p-4 mt-6"></div>
       <div class="flex justify-center gap-2 mt-6 flex-wrap">
         <button class="btn btn-ghost" onclick="goStep(4)">回去修改內容</button>
+        <a class="btn btn-rice" href="showcase.html" style="text-decoration:none">🎧 看全班成果展示</a>
         <button class="btn btn-primary" onclick="logout()">登出</button>
       </div>
     </article>
@@ -560,16 +595,20 @@ textarea.field{resize:vertical;line-height:1.7}
 /* =====================================================================
  * 設定區
  * ===================================================================== */
-const DEFAULT_GAS_URL = 'PASTE_YOUR_GAS_WEB_APP_URL_HERE';
+const DEFAULT_GAS_URL = 'https://script.google.com/a/macros/cces.ptc.edu.tw/s/AKfycbyCiOrB0C5ejdXJmNDrlO5NYBVUp6peT3kvJBaZwUjPTVUsE5jZPx4Cpw0qOGJ7K1vUZA/exec';
 const PBL_SITE_URL = 'https://sites.google.com/cces.ptc.edu.tw/cces10801/%E9%A6%96%E9%A0%81/%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8Fpbl%E5%B0%88%E9%A1%8C%E8%AA%B2%E7%A8%8B/%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8Fpbl%E5%B0%88%E9%A1%8C%E8%AA%B2%E7%A8%8B-%E7%94%A8suno-ai-%E6%94%B9%E7%B7%A8%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8F%E6%A0%A1%E6%AD%8C?authuser=0';
 
-const APP_VERSION = 'v1.1';
+const APP_VERSION = 'v1.3';
 const CHANGELOG = [
+  { version: 'v1.3', date: '2026-09-26', desc: '新增作品上傳與成果展示網站：第三關可上傳 Gemini 下載的歌曲檔（分塊上傳至 Drive，最大 20MB）；第四關加入「同意放上成果展示」勾選；新增 showcase.html 公開展示頁（姓名遮一字、發表會輪播模式）；教師主控台新增「上傳作品」欄位。需搭配後端 v1.1。' },
+  { version: 'v1.2', date: '2026-09-26', desc: '配合 Gemini 音樂「長度：簡短」約 1 分鐘：三區歌詞每區至少 40 字、完整歌詞至少 150 字（不計段落標籤與標點），副歌加長為四句；第三關新增「認識 Gemini 音樂創作」介紹（長度／人聲／類型設定與使用小規則），生成步驟與指令加入長度設定。' },
   { version: 'v1.1', date: '2026-09-26', desc: '改為全程使用 Gemini 生成音樂：移除 Suno 按鈕與工具選單，第三關新增 Gemini 音樂生成步驟說明；配合 Gemini 約 30 秒的長度，副歌縮為兩句並顯示歌詞字數；移除 MP3 備援，網站只需上傳影片與樂譜圖。' },
   { version: 'v1.0', date: '2026-09-26', desc: '初版：四關闖關（傳統校歌解密→特色歌詞改編→AI 曲風魔法師→專屬校歌發表會）、ptc 帳號登入與進度保存、三題影片測驗內嵌於各關、曲風指令產生器（Gemini／Suno）、教師主控台表格／清單／圖卡三檢視與 CSV 匯出、自建輕量 CSS。' }
 ];
 
 const TOTAL_STEPS = 4;
+const MAX_UPLOAD_MB = 20;
+const CHUNK_SIZE = 2 * 1024 * 1024;   // 每塊 base64 約 2MB
 const XP_PER_STEP = 200;   // 4 關 × 200 = 800 XP
 const STEP_NAMES = ['傳統校歌解密', '特色歌詞改編', 'AI 曲風魔法師', '專屬校歌發表會'];
 
@@ -583,6 +622,7 @@ const ANSWER_FIELDS = [
   { key: 'musicPrompt',    label: '曲風指令',     icon: '🪄', mono: true  },
   { key: 'songTitle',      label: '歌名',         icon: '🎵', mono: false },
   { key: 'songUrl',        label: '作品連結',     icon: '🔗', mono: false, url: true },
+  { key: 'songFileUrl',    label: '上傳作品',     icon: '💾', mono: false, url: true },
   { key: 'creationIdea',   label: '創作理念',     icon: '💡', mono: false },
   { key: 'easterEgg',      label: '歌詞彩蛋',     icon: '🥚', mono: false },
   { key: 'reflection',     label: '心得',         icon: '💭', mono: false }
@@ -798,6 +838,8 @@ function enterQuest(data) {
   // 將後端資料灌回所有欄位（login 回傳完整欄位）
   ['sceneryNotes', 'lyricAstronomy', 'lyricFoodAgri', 'lyricOcean', 'fullLyrics',
    'songTitle', 'songUrl', 'creationIdea', 'easterEgg', 'reflection'].forEach(k => { $(k).value = data[k] || ''; });
+  $('showcaseConsent').checked = String(data.showcaseConsent).toLowerCase() === 'true';
+  renderUploadStatus();
   $('aiTool').value = 'Gemini';
   $('musicPrompt').value = data.musicPrompt || '';
 
@@ -881,7 +923,8 @@ function collectCurrentFields() {
     songUrl: $('songUrl').value,
     creationIdea: $('creationIdea').value,
     easterEgg: $('easterEgg').value,
-    reflection: $('reflection').value
+    reflection: $('reflection').value,
+    showcaseConsent: $('showcaseConsent').checked ? 'true' : ''
   };
 }
 
@@ -929,9 +972,11 @@ function finishStep1(btn) {
 function finishStep2(btn) {
   if (!quizPassed.quiz3) { showToast('先答對上面的小測驗喔', 'error'); return; }
   const short = [['lyricAstronomy', '天文'], ['lyricFoodAgri', '食農'], ['lyricOcean', '海洋']]
-    .filter(([id]) => textLen(id) < 6).map(([, n]) => n);
-  if (short.length) { showToast(`「${short.join('、')}」歌詞至少要寫 6 個字`, 'error'); return; }
+    .filter(([id]) => lyricLen($(id).value) < 40).map(([, n]) => n);
+  if (short.length) { showToast(`「${short.join('、')}」歌詞至少要寫 40 個字`, 'error'); return; }
   if (textLen('fullLyrics') < 20) assembleLyrics(false);
+  const total = lyricLen($('fullLyrics').value);
+  if (total < 150) { refreshCounters(); showToast(`完整歌詞目前 ${total} 字，至少要 150 字才夠唱 1 分鐘`, 'error'); return; }
   buildPrompt();
   advance(3, btn);
 }
@@ -940,6 +985,8 @@ function finishStep3(btn) {
   if (textLen('songTitle') < 1) { showToast('請幫你的 AI 校歌取個歌名', 'error'); return; }
   const url = $('songUrl').value.trim();
   if (url && !safeUrl(url)) { showToast('作品連結要以 https:// 開頭', 'error'); return; }
+  if (!url && !(currentStudent && currentStudent.songFileUrl) &&
+      !confirm('還沒有貼連結，也還沒上傳作品檔。\n作品先存在老師平板上，確定要繼續嗎？')) return;
   advance(4, btn);
 }
 function finishStep4(btn) {
@@ -1029,10 +1076,13 @@ document.querySelectorAll('[data-words]').forEach(box => {
   });
 });
 
+function lyricLen(text) {
+  return String(text || '').replace(/\[[^\]]*\]/g, '').replace(/[\s，。、！？；：「」『』（）,.!?;:()~～…—-]/g, '').length;
+}
 function refreshCounters() {
   document.querySelectorAll('.counter').forEach(c => {
     const ta = $(c.dataset.for);
-    const n = (ta.value || '').trim().length;
+    const n = c.dataset.lyric ? lyricLen(ta.value) : (ta.value || '').trim().length;
     const min = Number(c.dataset.min || 0);
     c.textContent = `${n} 字${min ? `（至少 ${min} 字）` : ''}`;
     c.classList.toggle('bad', n < min);
@@ -1057,7 +1107,9 @@ ${o}
 
 [Chorus]
 山川壯麗 海濤奔湧
-車城 車城 我們的家`;
+星空 稻田 還有漁港
+車城 車城 我們的家
+美哉吾校 醉臥其中`;
   if (manual) showToast('✨ 已組合！可以再自己修改副歌');
 }
 
@@ -1087,7 +1139,7 @@ function pickedText(g, lang) { return styleState[g].map(i => STYLE_GROUPS[g].ite
 function buildPrompt() {
   const lyrics = $('fullLyrics').value.trim() || '（請先完成第二關的歌詞）';
   const zh = `${pickedText('genre', 'zh')[0]}，心情${pickedText('mood', 'zh')[0]}，由${pickedText('vocal', 'zh')[0]}演唱，樂器用${pickedText('inst', 'zh').join('、')}`;
-  $('musicPrompt').value = `請幫我創作一首屏東縣車城國小的新校歌。\n曲風：${zh}。\n請用中文演唱下面的歌詞，不要改動歌詞內容，[ ] 裡是段落標記不用唱出來：\n\n${lyrics}`;
+  $('musicPrompt').value = `請幫我創作一首屏東縣車城國小的新校歌。\n曲風：${zh}。\n長度：約 1 分鐘。\n請用中文演唱下面的歌詞，不要改動歌詞內容，[ ] 裡是段落標記不用唱出來：\n\n${lyrics}`;
   renderPromptView();
 }
 function renderPromptView() { $('musicPromptView').textContent = $('musicPrompt').value; }
@@ -1110,13 +1162,77 @@ async function copyText(id) {
  * ===================================================================== */
 function renderSongPreview() {
   const url = safeUrl($('songUrl').value);
+  const fileUrl = currentStudent ? safeUrl(currentStudent.songFileUrl) : '';
   $('songPreview').innerHTML = `
     <p class="font-bold">🎵 ${escapeHtml($('songTitle').value || '（未命名）')}</p>
     <p class="text-slate-500 text-xs mt-1">${escapeHtml($('aiTool').value)} ・ ${escapeHtml(pickedText('genre', 'zh')[0])}</p>
-    ${url ? `<a class="btn btn-primary btn-sm mt-2" style="text-decoration:none" href="${escapeHtml(url)}" target="_blank" rel="noopener">▶ 播放我的作品</a>` : '<p class="hint mt-2">（作品存在老師平板，發表時由老師播放）</p>'}
+    ${fileUrl ? `<div class="player-box mt-2"><iframe src="${escapeHtml(fileUrl)}" allow="autoplay" title="我的作品"></iframe></div>` : ''}
+    ${url ? `<a class="btn btn-primary btn-sm mt-2" style="text-decoration:none" href="${escapeHtml(url)}" target="_blank" rel="noopener">▶ 開啟 Gemini 分享連結</a>` : ''}
+    ${!fileUrl && !url ? '<p class="hint mt-2">（作品存在老師平板，發表時由老師播放）</p>' : ''}
     <details class="mt-2"><summary class="text-sea font-bold" style="cursor:pointer">看我的歌詞</summary>
       <p class="whitespace-pre-wrap mt-2">${escapeHtml($('fullLyrics').value)}</p></details>`;
 }
+function renderUploadStatus() {
+  const st = $('uploadStatus');
+  if (currentStudent && currentStudent.songFileUrl) {
+    st.innerHTML = `✅ 已上傳：${escapeHtml(currentStudent.songFileName || '作品檔')}　<a href="${escapeHtml(safeUrl(currentStudent.songFileUrl))}" target="_blank" rel="noopener">試聽</a>`;
+  } else {
+    st.textContent = '尚未上傳作品檔';
+  }
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = () => reject(new Error('檔案讀取失敗'));
+    r.readAsDataURL(file);
+  });
+}
+
+async function uploadSongFile(btn) {
+  if (!currentStudent) return;
+  const file = $('songFile').files[0];
+  if (!file) { showToast('請先選擇作品檔', 'error'); return; }
+  if (!/\.(mp3|m4a|wav|aac|ogg|mp4|webm|mov)$/i.test(file.name)) { showToast('只接受音樂或影片檔（mp3、m4a、wav、mp4…）', 'error'); return; }
+  if (file.size > MAX_UPLOAD_MB * 1024 * 1024) { showToast(`檔案超過 ${MAX_UPLOAD_MB}MB，請重新下載較短的版本`, 'error'); return; }
+
+  const bar = $('uploadBar');
+  const setBar = pct => { bar.style.width = pct + '%'; };
+  $('uploadBarWrap').classList.remove('hidden');
+  setBar(3);
+  setBusy(btn, true, '上傳中…');
+  $('uploadStatus').textContent = '讀取檔案中…';
+  try {
+    const b64 = await readFileAsBase64(file);
+    const total = Math.max(1, Math.ceil(b64.length / CHUNK_SIZE));
+    const uploadId = 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    for (let i = 0; i < total; i++) {
+      $('uploadStatus').textContent = `上傳中… ${i + 1} / ${total}`;
+      const res = await callGAS_POST({
+        action: 'uploadChunk', ptcId: currentStudent.ptcId, uploadId, index: i, total,
+        data: b64.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE)
+      });
+      if (!res.success) throw new Error(res.message || '分塊上傳失敗');
+      setBar(Math.round((i + 1) / total * 85));
+    }
+    $('uploadStatus').textContent = '合併檔案中…';
+    const merged = await callGAS_POST({ action: 'mergeChunks', ptcId: currentStudent.ptcId, uploadId, total, fileName: file.name });
+    if (!merged.success) throw new Error(merged.message || '合併失敗');
+    setBar(100);
+    Object.assign(currentStudent, merged.data);
+    hideConnectionError();
+    renderUploadStatus();
+    showToast('🎉 作品上傳成功！');
+  } catch (err) {
+    $('uploadStatus').textContent = '❌ ' + err.message;
+    showToast(err.message, 'error');
+  } finally {
+    setBusy(btn, false);
+    setTimeout(() => $('uploadBarWrap').classList.add('hidden'), 1500);
+  }
+}
+
 function renderFinishSummary() {
   $('finishSummary').innerHTML = `
     <p class="font-bold mb-2">🎵 ${escapeHtml($('songTitle').value || '我的車城校歌')}</p>
@@ -1255,7 +1371,7 @@ function renderTable(list) {
           <td>${s.xp || 0}</td>
           <td>${escapeHtml(s.quizScore || '')}</td>
           <td class="truncate">${escapeHtml(s.songTitle)}</td>
-          <td>${renderFieldValue(ANSWER_FIELDS.find(f => f.key === 'songUrl'), s.songUrl)}</td>
+          <td>${s.songFileUrl ? renderFieldValue(ANSWER_FIELDS.find(f => f.key === 'songFileUrl'), s.songFileUrl) : renderFieldValue(ANSWER_FIELDS.find(f => f.key === 'songUrl'), s.songUrl)}</td>
           <td class="text-xs text-slate-500">${escapeHtml(s.updatedAt)}</td>
         </tr>`).join('')}</tbody>
     </table>`;
@@ -1281,7 +1397,7 @@ function renderList(list) {
 
 function renderCards(list) {
   const focus = $('focusField').value;
-  const fields = focus ? ANSWER_FIELDS.filter(f => f.key === focus) : ANSWER_FIELDS.filter(f => ['songTitle', 'songUrl', 'lyricAstronomy', 'lyricFoodAgri', 'lyricOcean', 'easterEgg'].includes(f.key));
+  const fields = focus ? ANSWER_FIELDS.filter(f => f.key === focus) : ANSWER_FIELDS.filter(f => ['songTitle', 'songFileUrl', 'songUrl', 'lyricAstronomy', 'lyricFoodAgri', 'lyricOcean', 'easterEgg'].includes(f.key));
   $('teacherCards').innerHTML = list.map(s => `
     <div class="show-card" onclick="openDetail('${escapeHtml(s.ptcId)}')">
       <div class="flex items-center justify-between gap-2 mb-2">
