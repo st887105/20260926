@@ -271,7 +271,7 @@ textarea.field{resize:vertical;line-height:1.7}
     <div class="flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-3">
         <div class="brand-mark">車城</div>
-        <span id="versionBadge" class="version-badge">v1.3.1</span>
+        <span id="versionBadge" class="version-badge">v1.4.1</span>
       </div>
       <div class="flex items-center gap-2">
         <a class="header-btn" href="index.html" style="text-decoration:none">🎫 回闖關網站</a>
@@ -303,7 +303,7 @@ textarea.field{resize:vertical;line-height:1.7}
 </main>
 
 <footer class="site-footer">
-  <p>車城國小資訊老師 @ Google Gemini 協作設計</p>
+  <p>車城國小資訊老師徐吉德整理製作@2026</p>
   <p id="footerVersion" class="mt-1"></p>
 </footer>
 
@@ -344,7 +344,7 @@ const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxrRJ3sTzMiHtbO
 //    會被導向登入／錯誤頁（HTML），JSONP 會直接失敗。一律轉成通用格式 /macros/s/…/exec。
 //    ⚠️ 前提：GAS 部署的存取權限必須是「所有人 (Anyone)」。
 const GAS_URL = DEFAULT_GAS_URL.replace(/^https:\/\/script\.google\.com\/a\/macros\/[^/]+\/s\//, 'https://script.google.com/macros/s/');
-const APP_VERSION = 'v1.3.1';
+const APP_VERSION = 'v1.4.1';
 
 // 卡片封面配色（完整 class 名寫死，符合自建 CSS 規範）
 const COVERS = ['cover-astro', 'cover-agri', 'cover-ocean', 'cover-night'];
@@ -467,8 +467,8 @@ function openPlay(i) {
   const fileUrl = safeUrl(w.songFileUrl), linkUrl = safeUrl(w.songUrl);
   $('playMedia').innerHTML = fileUrl
     ? `<div class="player-box"><iframe src="${escapeHtml(fileUrl)}" allow="autoplay" title="作品播放"></iframe></div>
-       ${linkUrl ? `<a class="text-sm mt-2 inline-block" href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">另開 Gemini 分享連結 ↗</a>` : ''}`
-    : `<a class="btn btn-primary" style="text-decoration:none" href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">▶ 開啟 Gemini 分享連結</a>`;
+       ${linkUrl ? `<a class="text-sm mt-2 inline-block" href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">另開 Suno 分享連結 ↗</a>` : ''}`
+    : `<a class="btn btn-primary" style="text-decoration:none" href="${escapeHtml(linkUrl)}" target="_blank" rel="noopener">▶ 開啟 Suno 分享連結</a>`;
   $('playLyrics').textContent = String(w.fullLyrics || '').replace(/\[[^\]]*\]\n?/g, '');
   $('playIdea').textContent = w.creationIdea || '—';
   $('playEgg').textContent = w.easterEgg || '—';
