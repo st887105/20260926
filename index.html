@@ -257,7 +257,7 @@ textarea.field{resize:vertical;line-height:1.7}
     <div class="flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-3">
         <div class="brand-mark">車城</div>
-        <button id="versionBadge" class="version-badge" onclick="openChangelog()">v1.3.1</button>
+        <button id="versionBadge" class="version-badge" onclick="openChangelog()">v1.4.1</button>
       </div>
       <div class="flex items-center gap-2">
         <button id="logoutBtn" class="header-btn hidden" onclick="logout()">登出</button>
@@ -384,7 +384,7 @@ textarea.field{resize:vertical;line-height:1.7}
         <h3 class="text-lg font-bold">🎼 組合成完整歌詞</h3>
         <button class="btn btn-rice btn-sm" onclick="assembleLyrics(true)">✨ 一鍵組合</button>
       </div>
-      <p class="hint mb-2">[Verse] 是主歌、[Chorus] 是副歌，AI 看得懂這些標籤。組合後可以再自己修改。<br>⏱️ 第三關會在 Gemini 選「簡短」長度（約 1 分鐘），完整歌詞至少要 150 字，歌才唱得滿。</p>
+      <p class="hint mb-2">[Verse] 是主歌、[Chorus] 是副歌，AI 看得懂這些標籤。組合後可以再自己修改。<br>⏱️ 完整歌詞至少要 150 字，第三關交給 Suno 時才唱得完整，不會一直重複同一段。</p>
       <textarea id="fullLyrics" class="field font-mono text-sm" rows="12" maxlength="1500" placeholder="按「一鍵組合」自動產生，也可以自己寫"></textarea>
       <div class="counter" data-for="fullLyrics" data-min="150" data-lyric="1"></div>
 
@@ -400,14 +400,14 @@ textarea.field{resize:vertical;line-height:1.7}
       <h2 class="stage-title mb-3">選好曲風，讓 AI 幫你譜出旋律</h2>
 
       <div class="bg-sea-50 rounded-lg p-4 mb-6">
-        <h3 class="font-bold text-lg mb-2">🎹 認識 Gemini 音樂創作</h3>
-        <p class="text-sm">Gemini 內建 AI 音樂生成功能：你給它歌詞和風格描述，它會自動作曲、編曲，由 AI 歌手唱出來，還會幫歌曲配上一張封面圖。</p>
+        <h3 class="font-bold text-lg mb-2">🎹 認識 Suno 音樂創作</h3>
+        <p class="text-sm">Suno 是 AI 作曲網站：把「歌詞」和「曲風」交給它，它會自動作曲、編曲，由 AI 歌手唱出來，約 30 秒就會生成 <span class="font-bold">2 首約 1 分鐘的完整歌曲</span> 讓你挑選。我們用 <span class="font-bold">Advanced（進階）模式</span>，只要貼上三樣東西：</p>
         <div class="grid lg:grid-cols-3 gap-3 mt-3 text-sm">
-          <div class="bg-white rounded p-3 border"><p class="font-bold">🕒 長度</p><p>請選「<span class="font-bold text-seal">簡短</span>」，約 1 分鐘，所以歌詞要 150 字以上。</p></div>
-          <div class="bg-white rounded p-3 border"><p class="font-bold">🎤 人聲</p><p>配合你在下面「誰來唱」的選擇，例如兒童合唱、女生獨唱。</p></div>
-          <div class="bg-white rounded p-3 border"><p class="font-bold">🎵 類型</p><p>配合你選的曲風，例如流行、搖滾、民謠。</p></div>
+          <div class="bg-white rounded p-3 border"><p class="font-bold">🎼 Lyrics 歌詞</p><p>第二關寫好的歌詞，[Verse] [Chorus] 標籤會告訴 Suno 哪裡是主歌、哪裡是副歌。</p></div>
+          <div class="bg-white rounded p-3 border"><p class="font-bold">🎨 Styles 曲風</p><p>用英文寫的曲風關鍵字，下面選好後本網站會自動翻譯。</p></div>
+          <div class="bg-white rounded p-3 border"><p class="font-bold">🏷️ Song Title 歌名</p><p>你幫新校歌取的名字。</p></div>
         </div>
-        <p class="hint mt-3">小規則：每次生成的結果都不一樣，可以多試幾次挑最好的；指令裡不要寫真實歌手的名字；AI 生成的歌會帶有看不見的數位浮水印，分享時要說明是 AI 作品。</p>
+        <p class="hint mt-3">小規則：使用老師指定的帳號；模型保持免費的 v6-mini；每次生成都會用掉點數，每組只按一次 Create；不要寫真實歌手的名字；<span class="font-bold text-seal">不要按 Publish（會公開到 Suno 網站）</span>；分享時要說明是 AI 作品。</p>
       </div>
 
       <div id="quiz2" class="mb-6"></div>
@@ -421,39 +421,60 @@ textarea.field{resize:vertical;line-height:1.7}
       <h3 class="font-bold mb-2">④ 樂器（可複選）</h3>
       <div id="instChips" class="flex flex-wrap gap-2 mb-4"></div>
 
-      <input type="hidden" id="aiTool" value="Gemini">
-      <div class="bg-rice-50 rounded-lg p-4 mb-4 text-sm">
-        <p class="font-bold mb-1">🎹 在 Gemini 生成音樂的步驟</p>
-        <p>① 按下方「複製指令」→ ② 開啟 Gemini，用學校帳號登入 → ③ 在輸入框的「工具」選「音樂」→ ④ 輸入框下方「長度」選「簡短」，「人聲」「類型」配合你的選擇 → ⑤ 貼上指令送出 → ⑥ 聽聽看，不滿意就再生成一次 → ⑦ 按「分享」複製連結貼回本頁。</p>
-      </div>
+      <input type="hidden" id="aiTool" value="Suno">
+      <label class="label" for="songTitle">⑤ 幫新校歌取歌名</label>
+      <input id="songTitle" class="field mb-4" maxlength="40" placeholder="例如：落山風吹過的星空">
 
-      <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
-        <h3 class="font-bold">🪄 魔法指令（自動產生）</h3>
-        <div class="flex gap-2 flex-wrap">
-          <button class="btn btn-ghost btn-sm" onclick="copyText('musicPrompt')">📋 複製指令</button>
-          <button class="btn btn-ghost btn-sm" onclick="copyText('fullLyrics')">📋 只複製歌詞</button>
+      <h3 class="text-lg font-bold mb-2">📦 Suno 貼上包（按複製，到 Suno 貼上）</h3>
+      <div class="flex flex-col gap-3">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="font-bold">① Lyrics 歌詞欄</span>
+            <button class="btn btn-ghost btn-sm" onclick="copyText('sunoLyrics')">📋 複製歌詞</button>
+          </div>
+          <div id="sunoLyricsView" class="prompt-box"></div>
         </div>
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="font-bold">② Styles 曲風欄</span>
+            <button class="btn btn-ghost btn-sm" onclick="copyText('sunoStyles')">📋 複製曲風</button>
+          </div>
+          <div id="sunoStylesView" class="prompt-box"></div>
+          <p id="sunoStylesZh" class="hint mt-1"></p>
+        </div>
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="font-bold">③ Song Title 歌名欄</span>
+            <button class="btn btn-ghost btn-sm" onclick="copyText('songTitle')">📋 複製歌名</button>
+          </div>
+          <div id="sunoTitleView" class="prompt-box"></div>
+        </div>
+        <p id="sunoVocalHint" class="text-sm bg-amber-50 rounded p-3"></p>
       </div>
-      <div id="musicPromptView" class="prompt-box"></div>
+      <textarea id="sunoLyrics" class="hidden"></textarea>
+      <textarea id="sunoStyles" class="hidden"></textarea>
       <textarea id="musicPrompt" class="hidden"></textarea>
 
+      <div class="bg-rice-50 rounded-lg p-4 mt-4 text-sm">
+        <p class="font-bold mb-1">🎹 在 Suno 生成歌曲的步驟</p>
+        <p>① 按「開啟 Suno 建立頁」→ ② 上方切換到「<span class="font-bold">Advanced</span>」，右上模型保持「v6-mini」→ ③ <span class="font-bold">先用滑鼠點一下 Lyrics 框</span>，再按 Ctrl+V 貼上歌詞（沒點到框就貼，可能會跳到別的頁面）→ ④ 往下點一下 <span class="font-bold">Styles</span> 框，貼上曲風 → ⑤ 打開「More Options」，依上方黃色提示設定 Vocal Gender，其他設定不要動 → ⑥ 最下面點一下 <span class="font-bold">Song Title</span>，貼上歌名 → ⑦ 按「<span class="font-bold">Create</span>」，約 30 秒右邊會出現 4 首 → ⑧ <span class="font-bold">只聽標示「V6-MINI」的 2 首</span>（標「V6 PREVIEW」、旁邊有 Upgrade 按鈕的是付費試聽，不完整，不要選）→ ⑨ 選好一首，按右邊「⋯」→「Download」存成 MP3 上傳到下方，或按「Share」複製連結貼回本頁。</p>
+      </div>
+
       <div class="flex flex-wrap gap-2 mt-3">
-        <a class="btn btn-primary btn-sm" href="https://gemini.google.com/app" target="_blank" rel="noopener" style="text-decoration:none">開啟 Gemini ↗</a>
+        <a class="btn btn-primary btn-sm" href="https://suno.com/create" target="_blank" rel="noopener" style="text-decoration:none">開啟 Suno 建立頁 ↗</a>
         <a id="pblLink" class="btn btn-ghost btn-sm" target="_blank" rel="noopener" style="text-decoration:none">PBL 專題課程網站 ↗</a>
       </div>
 
       <div class="bg-sea-50 rounded-lg p-4 mt-6">
         <h3 class="font-bold mb-2">🎧 繳交你的 AI 校歌</h3>
-        <label class="label text-sm" for="songTitle">歌名</label>
-        <input id="songTitle" class="field" maxlength="40" placeholder="例如：落山風吹過的星空">
-        <label class="label text-sm mt-3" for="songUrl">作品分享連結（選填）</label>
-        <input id="songUrl" class="field" inputmode="url" placeholder="https://...（Gemini 的分享連結）">
+        <label class="label text-sm" for="songUrl">作品分享連結（選填）</label>
+        <input id="songUrl" class="field" inputmode="url" placeholder="https://suno.com/song/...（Suno 的分享連結）">
         <p class="hint mt-1">連結和下方的上傳檔案擇一即可，兩個都做更保險。</p>
 
         <h3 class="font-bold mt-4 mb-2">💾 上傳作品檔（放上成果展示網站）</h3>
         <div class="upload-drop">
           <input id="songFile" type="file" accept="audio/*,video/*,.mp3,.m4a,.wav,.mp4,.webm,.mov">
-          <p class="hint mt-2">在 Gemini 按「下載」存下歌曲後選擇檔案上傳。支援 mp3、m4a、wav、mp4、webm、mov，最大 20MB；重新上傳會取代舊檔。</p>
+          <p class="hint mt-2">在 Suno 歌曲旁按「⋯」→「Download」存成 MP3 後選擇檔案上傳。支援 mp3、m4a、wav、mp4、webm、mov，最大 20MB；重新上傳會取代舊檔。</p>
           <div class="progress progress-lg mt-2 hidden" id="uploadBarWrap"><span id="uploadBar" style="width:0%"></span></div>
           <p id="uploadStatus" class="text-sm mt-2"></p>
           <button id="uploadBtn" class="btn btn-primary btn-sm mt-2" onclick="uploadSongFile(this)">⬆️ 上傳作品</button>
@@ -546,7 +567,7 @@ textarea.field{resize:vertical;line-height:1.7}
 </main>
 
 <footer class="site-footer">
-  <p>車城國小資訊老師 @ Google Gemini 協作設計</p>
+  <p>車城國小資訊老師徐吉德整理製作@2026</p>
   <p id="footerVersion" class="mt-1"></p>
 </footer>
 
@@ -602,8 +623,10 @@ const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxrRJ3sTzMiHtbO
 const GAS_URL = DEFAULT_GAS_URL.replace(/^https:\/\/script\.google\.com\/a\/macros\/[^/]+\/s\//, 'https://script.google.com/macros/s/');
 const PBL_SITE_URL = 'https://sites.google.com/cces.ptc.edu.tw/cces10801/%E9%A6%96%E9%A0%81/%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8Fpbl%E5%B0%88%E9%A1%8C%E8%AA%B2%E7%A8%8B/%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8Fpbl%E5%B0%88%E9%A1%8C%E8%AA%B2%E7%A8%8B-%E7%94%A8suno-ai-%E6%94%B9%E7%B7%A8%E8%BB%8A%E5%9F%8E%E5%9C%8B%E5%B0%8F%E6%A0%A1%E6%AD%8C?authuser=0';
 
-const APP_VERSION = 'v1.3.1';
+const APP_VERSION = 'v1.4.1';
 const CHANGELOG = [
+  { version: 'v1.4.1', date: '2026-10-04', desc: '依 Suno 實測修正步驟：生成約 30 秒、每次出現 4 首（2 首 V6-MINI 完整版約 1 分鐘＋2 首 V6 PREVIEW 付費試聽），提醒只選 V6-MINI；貼上前先點欄位以免觸發快捷鍵跳頁；「⋯」選單確認有 Download 與 Share，提醒不要按 Publish；分享連結範例改為 suno.com/song/…。' },
+  { version: 'v1.4', date: '2026-10-04', desc: '改回使用 Suno 生成歌曲（Gemini 無法生成人聲）：第三關改為「Suno 貼上包」，自動產生 Lyrics（段落標籤轉為 Suno 格式）、英文 Styles、Song Title 三個複製區，並依「誰來唱」提示 More Options 的 Vocal Gender；新增依 Suno Advanced 模式實際介面整理的 9 步驟；歌名欄移到產生指令前；頁尾署名更新。' },
   { version: 'v1.3.1', date: '2026-09-27', desc: '修正 GitHub Pages 上「JSONP 連線失敗」：學校網域版 GAS 網址（/a/macros/cces.ptc.edu.tw/）自動轉為通用格式 /macros/s/…/exec，避免學生未登入或多帳號登入時被導向登入頁；連線失敗訊息改為提示檢查部署權限，並在 Console 印出 ping 檢查網址。' },
   { version: 'v1.3', date: '2026-09-26', desc: '新增作品上傳與成果展示網站：第三關可上傳 Gemini 下載的歌曲檔（分塊上傳至 Drive，最大 20MB）；第四關加入「同意放上成果展示」勾選；新增 showcase.html 公開展示頁（姓名遮一字、發表會輪播模式）；教師主控台新增「上傳作品」欄位。需搭配後端 v1.1。' },
   { version: 'v1.2', date: '2026-09-26', desc: '配合 Gemini 音樂「長度：簡短」約 1 分鐘：三區歌詞每區至少 40 字、完整歌詞至少 150 字（不計段落標籤與標點），副歌加長為四句；第三關新增「認識 Gemini 音樂創作」介紹（長度／人聲／類型設定與使用小規則），生成步驟與指令加入長度設定。' },
@@ -670,27 +693,29 @@ const MATCH_OPTIONS = [
   { v: 'astro', t: '夜空星星（車城本校天文）' }
 ];
 
-/* ---------- 第三關曲風選項（組成 Gemini 指令） ---------- */
+/* ---------- 第三關曲風選項（zh 顯示給學生、en 貼進 Suno Styles；gender 對應 More Options → Vocal Gender） ---------- */
 const STYLE_GROUPS = {
   genre: { el: 'genreChips', multi: false, items: [
-    { zh: '輕快的流行樂' }, { zh: '熱血的搖滾樂' },
-    { zh: '溫暖的木吉他民謠' }, { zh: '節奏感強的饒舌' },
-    { zh: '雄壯的進行曲' }, { zh: '抒情的鋼琴曲' }
+    { zh: '輕快的流行樂', en: 'upbeat Mandopop' }, { zh: '熱血的搖滾樂', en: 'energetic pop rock' },
+    { zh: '溫暖的木吉他民謠', en: 'warm acoustic folk' }, { zh: '節奏感強的饒舌', en: 'kids hip-hop, rap' },
+    { zh: '雄壯的進行曲', en: 'marching band anthem' }, { zh: '抒情的鋼琴曲', en: 'piano ballad' }
   ]},
   mood: { el: 'moodChips', multi: false, items: [
-    { zh: '開心活潑' }, { zh: '熱血勇敢' },
-    { zh: '溫柔感動' }, { zh: '驕傲自信' }
+    { zh: '開心活潑', en: 'cheerful, happy' }, { zh: '熱血勇敢', en: 'uplifting, powerful' },
+    { zh: '溫柔感動', en: 'heartwarming, gentle' }, { zh: '驕傲自信', en: 'proud, confident' }
   ]},
   vocal: { el: 'vocalChips', multi: false, items: [
-    { zh: '兒童合唱' }, { zh: '女生獨唱' },
-    { zh: '男生獨唱' }, { zh: '男女對唱' }
+    { zh: '兒童合唱', en: "children's choir", gender: '' }, { zh: '女生獨唱', en: "female vocals", gender: 'Female' },
+    { zh: '男生獨唱', en: "male vocals", gender: 'Male' }, { zh: '男女對唱', en: "male and female duet", gender: '' }
   ]},
   inst: { el: 'instChips', multi: true, items: [
-    { zh: '木吉他' }, { zh: '鋼琴' }, { zh: '電吉他' },
-    { zh: '爵士鼓' }, { zh: '烏克麗麗' }, { zh: '海浪聲' }
+    { zh: '木吉他', en: 'acoustic guitar' }, { zh: '鋼琴', en: 'piano' }, { zh: '電吉他', en: 'electric guitar' },
+    { zh: '爵士鼓', en: 'drums' }, { zh: '烏克麗麗', en: 'ukulele' }, { zh: '海浪聲', en: 'ocean wave sounds' }
   ]}
 };
 const styleState = { genre: [0], mood: [0], vocal: [0], inst: [0] };
+// 每首歌固定加上的 Styles（中文演唱、校歌、清楚好懂）
+const SUNO_BASE_STYLES = ['Mandarin Chinese vocals', 'school anthem', 'clear vocals', 'kid-friendly'];
 
 /* =====================================================================
  * 狀態
@@ -848,7 +873,7 @@ function enterQuest(data) {
    'songTitle', 'songUrl', 'creationIdea', 'easterEgg', 'reflection'].forEach(k => { $(k).value = data[k] || ''; });
   $('showcaseConsent').checked = String(data.showcaseConsent).toLowerCase() === 'true';
   renderUploadStatus();
-  $('aiTool').value = 'Gemini';
+  $('aiTool').value = 'Suno';
   $('musicPrompt').value = data.musicPrompt || '';
 
   const step = Math.min(Math.max(Number(data.currentStep) || 1, 1), TOTAL_STEPS + 1);
@@ -867,7 +892,7 @@ function enterQuest(data) {
   renderAllQuizzes();
   renderMatch();
   refreshCounters();
-  if (data.musicPrompt) renderPromptView(); else buildPrompt();
+  buildPrompt();
   showStep(step);
 }
 
@@ -903,7 +928,7 @@ function showStep(step) {
   document.querySelectorAll('.quest-step').forEach(el => el.classList.add('hidden'));
   $('step' + step).classList.remove('hidden');
   $('xpText').textContent = currentStudent ? (currentStudent.xp || 0) : 0;
-  if (step === 3 && !$('musicPrompt').value.includes($('fullLyrics').value.trim())) buildPrompt();
+  if (step === 3) buildPrompt();
   if (step === 4) renderSongPreview();
   if (step === 5) renderFinishSummary();
   renderStageTrack();
@@ -990,7 +1015,7 @@ function finishStep2(btn) {
 }
 function finishStep3(btn) {
   if (!quizPassed.quiz2) { showToast('先答對上面的小測驗喔', 'error'); return; }
-  if (textLen('songTitle') < 1) { showToast('請幫你的 AI 校歌取個歌名', 'error'); return; }
+  if (textLen('songTitle') < 1) { showToast('請在 ⑤ 幫你的 AI 校歌取個歌名', 'error'); return; }
   const url = $('songUrl').value.trim();
   if (url && !safeUrl(url)) { showToast('作品連結要以 https:// 開頭', 'error'); return; }
   if (!url && !(currentStudent && currentStudent.songFileUrl) &&
@@ -1144,13 +1169,29 @@ function pickStyle(g, i) {
 }
 function pickedText(g, lang) { return styleState[g].map(i => STYLE_GROUPS[g].items[i][lang]); }
 
-function buildPrompt() {
-  const lyrics = $('fullLyrics').value.trim() || '（請先完成第二關的歌詞）';
-  const zh = `${pickedText('genre', 'zh')[0]}，心情${pickedText('mood', 'zh')[0]}，由${pickedText('vocal', 'zh')[0]}演唱，樂器用${pickedText('inst', 'zh').join('、')}`;
-  $('musicPrompt').value = `請幫我創作一首屏東縣車城國小的新校歌。\n曲風：${zh}。\n長度：約 1 分鐘。\n請用中文演唱下面的歌詞，不要改動歌詞內容，[ ] 裡是段落標記不用唱出來：\n\n${lyrics}`;
-  renderPromptView();
+// Suno 的段落標籤只認 [Verse 1]、[Chorus] 這類英文；把「[Verse 1｜車城本校・天文]」的中文說明拿掉，避免被唱出來
+function toSunoLyrics(text) {
+  return String(text || '').replace(/\[([^\]｜|]+?)\s*[｜|][^\]]*\]/g, '[$1]').trim();
 }
-function renderPromptView() { $('musicPromptView').textContent = $('musicPrompt').value; }
+function buildPrompt() {
+  const lyrics = toSunoLyrics($('fullLyrics').value) || '（請先完成第二關的歌詞）';
+  const styles = [pickedText('genre', 'en')[0], pickedText('mood', 'en')[0], pickedText('vocal', 'en')[0],
+                  ...pickedText('inst', 'en'), ...SUNO_BASE_STYLES].join(', ');
+  const zh = `${pickedText('genre', 'zh')[0]}・${pickedText('mood', 'zh')[0]}・${pickedText('vocal', 'zh')[0]}・${pickedText('inst', 'zh').join('、')}`;
+  const title = $('songTitle').value.trim();
+  $('sunoLyrics').value = lyrics;
+  $('sunoStyles').value = styles;
+  $('musicPrompt').value = `【Styles】${styles}\n【Song Title】${title}\n【Lyrics】\n${lyrics}`;
+  $('sunoLyricsView').textContent = lyrics;
+  $('sunoStylesView').textContent = styles;
+  $('sunoStylesZh').textContent = `中文意思：${zh}，中文演唱的校歌`;
+  $('sunoTitleView').textContent = title || '（請先在上方填歌名）';
+  const gender = STYLE_GROUPS.vocal.items[styleState.vocal[0]].gender;
+  $('sunoVocalHint').textContent = gender
+    ? `🎤 More Options → Vocal Gender：請選「${gender}」（${pickedText('vocal', 'zh')[0]}）`
+    : `🎤 More Options → Vocal Gender：不用選（${pickedText('vocal', 'zh')[0]}交給 Styles 決定）`;
+}
+$('songTitle').addEventListener('input', buildPrompt);
 
 async function copyText(id) {
   const text = $(id).value;
@@ -1162,7 +1203,7 @@ async function copyText(id) {
     try { document.execCommand('copy'); } catch (e2) {}
     document.body.removeChild(ta);
   }
-  showToast('📋 已複製，貼到 AI 工具裡吧！');
+  showToast('📋 已複製，到 Suno 對應的欄位貼上吧！');
 }
 
 /* =====================================================================
@@ -1175,7 +1216,7 @@ function renderSongPreview() {
     <p class="font-bold">🎵 ${escapeHtml($('songTitle').value || '（未命名）')}</p>
     <p class="text-slate-500 text-xs mt-1">${escapeHtml($('aiTool').value)} ・ ${escapeHtml(pickedText('genre', 'zh')[0])}</p>
     ${fileUrl ? `<div class="player-box mt-2"><iframe src="${escapeHtml(fileUrl)}" allow="autoplay" title="我的作品"></iframe></div>` : ''}
-    ${url ? `<a class="btn btn-primary btn-sm mt-2" style="text-decoration:none" href="${escapeHtml(url)}" target="_blank" rel="noopener">▶ 開啟 Gemini 分享連結</a>` : ''}
+    ${url ? `<a class="btn btn-primary btn-sm mt-2" style="text-decoration:none" href="${escapeHtml(url)}" target="_blank" rel="noopener">▶ 開啟 Suno 分享連結</a>` : ''}
     ${!fileUrl && !url ? '<p class="hint mt-2">（作品存在老師平板，發表時由老師播放）</p>' : ''}
     <details class="mt-2"><summary class="text-sea font-bold" style="cursor:pointer">看我的歌詞</summary>
       <p class="whitespace-pre-wrap mt-2">${escapeHtml($('fullLyrics').value)}</p></details>`;
